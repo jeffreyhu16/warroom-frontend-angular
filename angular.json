@@ -1,9 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "00969573-3c01-4cf4-8e19-029f69829bb9"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "bimap-dashboard": {
+    "warroom-frontend-angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/bimap-dashboard",
+            "outputPath": "dist/warroom-frontend-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -27,7 +30,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              {
+                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+              },
+              "src/styles.css",
+              "src/styles/main.scss"
             ],
             "scripts": []
           },
@@ -68,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "bimap-dashboard:build:production"
+              "browserTarget": "warroom-frontend-angular:build:production"
             },
             "development": {
-              "browserTarget": "bimap-dashboard:build:development"
+              "browserTarget": "warroom-frontend-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "bimap-dashboard:build"
+            "browserTarget": "warroom-frontend-angular:build"
           }
         },
         "test": {
@@ -94,6 +101,9 @@
               "src/assets"
             ],
             "styles": [
+              {
+                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+              },
               "src/styles.css"
             ],
             "scripts": []
@@ -102,5 +112,5 @@
       }
     }
   },
-  "defaultProject": "bimap-dashboard"
+  "defaultProject": "warroom-frontend-angular"
 }

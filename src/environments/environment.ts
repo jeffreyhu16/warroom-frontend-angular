@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiDomain: 'http://localhost:8701',
+  ssoAPIDomain: 'http://localhost:5001',
+  ssoEnable: true,
+  title: 'warroom',
+  version: '0.0.1'
 };
 
 /*
