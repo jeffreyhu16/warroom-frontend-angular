@@ -17,8 +17,7 @@ import { HomeComponent } from './home/home.component';
 import { UserComponent } from './pages/user/user.component';
 import { InstanceComponent } from './pages/instance/instance.component';
 import { DataViewComponent } from './pages/data-view/data-view.component';
-
-
+import { GridModule } from '@progress/kendo-angular-grid';
 
 
 @NgModule({
@@ -46,6 +45,7 @@ import { DataViewComponent } from './pages/data-view/data-view.component';
     ProgressBarModule,
     LayoutModule,
     DropDownsModule,
+    GridModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
