@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { GridEditService } from "src/app/services/grid-edit.service";
-import { USER_SAMPLE } from 'src/app/model/user-data';
 import {
   AddEvent,
   CancelEvent,
@@ -10,20 +9,19 @@ import {
   RemoveEvent,
   SaveEvent,
 } from "@progress/kendo-angular-grid";
-import { ALL_ROLES } from 'src/app/model/role-data';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
-export class UserComponent implements OnInit { // add dynamic variable for column width during window resize
+export class DashboardComponent implements OnInit {
+
+  @Input() public items!: any[];
 
   gridData!: GridDataResult;
   pageSize: number = 10;
   skip: number = 0;
-  items: any[] = USER_SAMPLE;
-  listItems: string[] = ALL_ROLES;
 
   constructor(private gridEditService: GridEditService) { }
 
@@ -84,5 +82,4 @@ export class UserComponent implements OnInit { // add dynamic variable for colum
   removeHandler({ dataItem }: RemoveEvent): void {
     console.log(dataItem);
   }
-
 }

@@ -16,7 +16,7 @@ a {
   background-color: $background-color;
 
   .k-drawer {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: $box-shadow;
 
     &.k-drawer-start {
       border-right-width: 0;
@@ -35,6 +35,56 @@ a {
 
   .k-drawer-content {
     overflow: hidden;
+    padding: 20px;
+  }
+
+  .k-grid {
+    height: calc(100vh - 120px);
+  }
+
+  .k-grid-header {
+    font-size: 1rem;
+  }
+
+  .k-grid th {
+    padding: 8px 24px;
+  }
+
+  .k-grid .k-hierarchy-cell>.k-icon {
+    padding: 10px;
+  }
+
+  .k-grid .k-edit-cell,
+  .k-grid .k-command-cell {
+    padding: 6px 16px;
+  }
+
+  .k-grid .k-command-cell>.k-button+.k-button {
+    margin-left: 0;
+  }
+
+  .k-detail-row > .k-detail-cell {
+    padding-left: 0;
+  }
+
+  .k-detail-cell .k-grid {
+    height: 100%;
+  }
+
+  .k-button-solid-base {
+    background-color: #00000012;
+  }
+
+  .k-command-cell .k-button {
+    margin-right: 6px;
+  }
+
+  .k-detail-row > .k-hierarchy-cell {
+    margin-right: -5px;
+  }
+
+  .k-multiselect {
+    width: 65%;
   }
 }
 
@@ -187,6 +237,7 @@ a {
   position: sticky;
   top: 0;
   z-index: 3;
+  box-shadow: $box-shadow;
 
   .nav-container {
     display: flex;

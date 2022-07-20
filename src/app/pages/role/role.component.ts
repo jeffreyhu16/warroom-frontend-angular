@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { GridEditService } from "src/app/services/grid-edit.service";
-import { DASHBOARD_SAMPLE } from 'src/app/model/dashboard-data';
+import { ROLE_SAMPLE } from "src/app/model/role-data";
 import {
   AddEvent,
   CancelEvent,
@@ -12,16 +12,16 @@ import {
 } from "@progress/kendo-angular-grid";
 
 @Component({
-  selector: 'app-data-view',
-  templateUrl: './data-view.component.html',
-  styleUrls: ['./data-view.component.css']
+  selector: 'app-role',
+  templateUrl: './role.component.html',
+  styleUrls: ['./role.component.css']
 })
-export class DataViewComponent implements OnInit {
+export class RoleComponent implements OnInit {
 
   gridData!: GridDataResult;
   pageSize: number = 10;
   skip: number = 0;
-  items: any[] = DASHBOARD_SAMPLE;
+  items: any[] = ROLE_SAMPLE;
 
   constructor(private gridEditService: GridEditService) { }
 
@@ -82,5 +82,4 @@ export class DataViewComponent implements OnInit {
   removeHandler({ dataItem }: RemoveEvent): void {
     console.log(dataItem);
   }
-
 }

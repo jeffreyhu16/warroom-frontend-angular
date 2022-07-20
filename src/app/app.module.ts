@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BimapAppLayoutModule } from 'bimap-app-layout';
-import { environment } from 'src/environments/environment';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { InstanceComponent } from './pages/instance/instance.component';
+
+import { NgModule } from '@angular/core';
+import { AppRoutingModule } from './app-routing.module';
+import { BimapAppLayoutModule } from 'bimap-app-layout';
 import { MenuModule } from '@progress/kendo-angular-menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
@@ -13,20 +13,20 @@ import { NotificationModule } from '@progress/kendo-angular-notification';
 import { ProgressBarModule } from '@progress/kendo-angular-progressbar';
 import { LayoutModule } from '@progress/kendo-angular-layout';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
-import { HomeComponent } from './home/home.component';
-import { UserComponent } from './pages/user/user.component';
-import { InstanceComponent } from './pages/instance/instance.component';
-import { DataViewComponent } from './pages/data-view/data-view.component';
 import { GridModule } from '@progress/kendo-angular-grid';
+import { environment } from 'src/environments/environment';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { RoleComponent } from './pages/role/role.component';
+import { UserComponent } from './pages/user/user.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     UserComponent,
+    RoleComponent,
     InstanceComponent,
-    DataViewComponent
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

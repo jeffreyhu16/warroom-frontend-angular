@@ -4,13 +4,8 @@
     <ng-template kendoGridToolbarTemplate>
         <button kendoGridAddCommand>新增</button>
     </ng-template>
-    <kendo-grid-column field="user_name" title="使用者" [width]="350"></kendo-grid-column>
-    <kendo-grid-column field="roles" title="角色">
-        <ng-template kendoGridCellTemplate let-dataItem>
-            <kendo-multiselect [data]="listItems" [value]="dataItem.roles"></kendo-multiselect>
-        </ng-template>
-    </kendo-grid-column>
-    <kendo-grid-command-column [width]="165">
+    <kendo-grid-column field="role" title="角色"></kendo-grid-column>
+    <kendo-grid-command-column [width]="170">
         <ng-template kendoGridCellTemplate let-isNew="isNew">
             <button kendoGridEditCommand [primary]="true">編輯</button>
             <button kendoGridRemoveCommand>移除</button>
@@ -18,4 +13,7 @@
             <button kendoGridCancelCommand>取消</button>
         </ng-template>
     </kendo-grid-command-column>
+    <div *kendoGridDetailTemplate="let dataItem">
+        <app-dashboard [items]="dataItem.dashboards"></app-dashboard>
+    </div>
 </kendo-grid>

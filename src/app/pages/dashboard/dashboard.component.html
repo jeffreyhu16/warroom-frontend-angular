@@ -4,12 +4,11 @@
     <ng-template kendoGridToolbarTemplate>
         <button kendoGridAddCommand>新增</button>
     </ng-template>
-    <kendo-grid-column field="user_name" title="使用者" [width]="350"></kendo-grid-column>
-    <kendo-grid-column field="roles" title="角色">
-        <ng-template kendoGridCellTemplate let-dataItem>
-            <kendo-multiselect [data]="listItems" [value]="dataItem.roles"></kendo-multiselect>
-        </ng-template>
-    </kendo-grid-column>
+    <kendo-grid-column field="title" title="名稱"></kendo-grid-column>
+    <kendo-grid-column field="menu_name" title="Menu群組名稱"></kendo-grid-column>
+    <kendo-grid-column field="space_name" title="空間"></kendo-grid-column>
+    <kendo-grid-column field="description" title="敘述"></kendo-grid-column>
+    <kendo-grid-column field="instance_alias" title="執行個體"></kendo-grid-column>
     <kendo-grid-command-column [width]="165">
         <ng-template kendoGridCellTemplate let-isNew="isNew">
             <button kendoGridEditCommand [primary]="true">編輯</button>
