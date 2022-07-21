@@ -1,13 +1,16 @@
-<kendo-grid [data]="gridData" [pageable]="true" [pageSize]="pageSize" [skip]="skip" (pageChange)="pageChange($event)"
-    (add)="addHandler($event)" (edit)="editHandler($event)" (cancel)="cancelHandler($event)"
-    (save)="saveHandler($event)" (remove)="removeHandler($event)">
+<kendo-grid [data]="gridData" [pageable]="true" [pageSize]="pageSize" [skip]="skip"
+    [kendoGridReactiveEditing]="createFormGroup">
     <ng-template kendoGridToolbarTemplate>
         <button kendoGridAddCommand>新增</button>
     </ng-template>
     <kendo-grid-column field="user_name" title="使用者" [width]="350"></kendo-grid-column>
     <kendo-grid-column field="roles" title="角色">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
+            <kendo-multiselect [data]="listItems" [(ngModel)]="dataItem.roles"></kendo-multiselect>
+        </ng-template>
         <ng-template kendoGridCellTemplate let-dataItem>
-            <kendo-multiselect [data]="listItems" [value]="dataItem.roles"></kendo-multiselect>
+            <!-- <span *ngFor="let item of dataItem.roles">{{ item }}</span> -->
+            <kendo-chip *ngFor="let item of dataItem.roles" [label]="item" [size]="'large'" themeColor="info"></kendo-chip>
         </ng-template>
     </kendo-grid-column>
     <kendo-grid-command-column [width]="165">
@@ -18,4 +21,4 @@
             <button kendoGridCancelCommand>取消</button>
         </ng-template>
     </kendo-grid-command-column>
-</kendo-grid>
+</kendo-grid>   

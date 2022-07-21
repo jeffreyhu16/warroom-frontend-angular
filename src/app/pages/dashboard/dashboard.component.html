@@ -1,6 +1,5 @@
-<kendo-grid [data]="gridData" [pageable]="true" [pageSize]="pageSize" [skip]="skip" (pageChange)="pageChange($event)"
-    (add)="addHandler($event)" (edit)="editHandler($event)" (cancel)="cancelHandler($event)"
-    (save)="saveHandler($event)" (remove)="removeHandler($event)">
+<kendo-grid [data]="gridData" [pageable]="true" [pageSize]="pageSize" [skip]="skip"
+    [kendoGridReactiveEditing]="createFormGroup">
     <ng-template kendoGridToolbarTemplate>
         <button kendoGridAddCommand>新增</button>
     </ng-template>

@@ -1,3 +1,8 @@
+export class User {
+    user_name: string = "";
+    roles: string[] = [];
+}
+
 export const USER_SAMPLE = [
     {
         user_name: "User A",
@@ -15,4 +20,5 @@ export const USER_SAMPLE = [
         user_name: "User D",
         roles: ["Role Y"]
     },
-]
+];
+

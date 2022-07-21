@@ -86,6 +86,19 @@ a {
   .k-multiselect {
     width: 65%;
   }
+
+  .k-chip {
+    margin-right: 6px;
+    color: $button-background;
+    border: 1px solid #fff;
+  }
+
+  .k-chip-solid-info:hover {
+    cursor: auto;
+    color: #fff;
+    border: 1px solid $button-background;
+    background-color: $button-background;
+  }
 }
 
 .card-container {

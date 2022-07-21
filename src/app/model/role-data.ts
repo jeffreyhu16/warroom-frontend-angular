@@ -1,6 +1,10 @@
+export class Role {
+    role: string = "";
+    dashboards: any[] = [];
+}
+
 export const ROLE_SAMPLE = [
     {
-        user_name: "Administrator",
         role: "Admin",
         dashboards: [
             {
@@ -34,7 +38,6 @@ export const ROLE_SAMPLE = [
         ]
     },
     {
-        user_name: "Operations",
         role: "Ops",
         dashboards: [
             {
@@ -61,7 +64,6 @@ export const ROLE_SAMPLE = [
         ]
     },
     {
-        user_name: "User A",
         role: "Role X",
         dashboards: [
             {
@@ -81,7 +83,6 @@ export const ROLE_SAMPLE = [
         ]
     },
     {
-        user_name: "User B",
         role: "Role Y",
         dashboards: [
             {
