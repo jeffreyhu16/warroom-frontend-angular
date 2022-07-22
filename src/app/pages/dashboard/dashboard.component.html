@@ -4,7 +4,15 @@
     <ng-template kendoGridToolbarTemplate>
         <button kendoGridAddCommand>新增</button>
     </ng-template>
-    <kendo-grid-column field="instance_name" title="執行個體"></kendo-grid-column>
+    <kendo-grid-column field="instance_name" title="執行個體">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
+            <kendo-dropdownlist [data]="listItems" textField="name" valueField="name" [value]="dataItem.instance_name" [valuePrimitive]="true" (valueChange)="changeHandler($event)" size="large">
+            </kendo-dropdownlist>
+        </ng-template>
+        <ng-template kendoGridCellTemplate let-dataItem>
+            <kendo-chip [label]="dataItem.instance_name" [size]="'large'" themeColor="info"></kendo-chip>
+        </ng-template>
+    </kendo-grid-column>
     <kendo-grid-column field="dashboard_name" title="名稱"></kendo-grid-column>
     <kendo-grid-column field="menu_name" title="Menu群組名稱"></kendo-grid-column>
     <!-- <kendo-grid-column field="space_name" title="空間"></kendo-grid-column> -->

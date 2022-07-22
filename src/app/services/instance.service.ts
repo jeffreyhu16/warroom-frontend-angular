@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MessageService } from './message.service';
 import { catchError, map, tap } from 'rxjs/operators';
-import { INSTANCE_SAMPLE } from '../model/instance-data';
+import { ALL_INSTANCES, INSTANCE_SAMPLE } from '../model/instance-data';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +30,11 @@ export class InstanceService {
         tap(() => this.log('fetched data')),
         catchError(this.handleError<any[]>('getGridData', []))
       );
+  }
+
+  getAllInstances(): Observable<any[]> {
+    const allRoles = of(ALL_INSTANCES);
+    return allRoles;
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

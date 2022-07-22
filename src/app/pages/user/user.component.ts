@@ -58,7 +58,7 @@ export class UserComponent implements OnInit { // add dynamic variable for colum
 
   createFormGroup(dataItem: any): FormGroup {
     const item = dataItem;
-    console.log(item)
+
     this.formGroup = this.formBuilder.group({
       user_id: item.user_id,
       name: item.name,

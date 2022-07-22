@@ -6,7 +6,7 @@
     </ng-template>
     <kendo-grid-column field="name" title="使用者" [width]="350"></kendo-grid-column>
     <kendo-grid-column field="roles" title="角色">
-        <ng-template kendoGridEditTemplate let-dataItem="dataItem" [formGroup]="formGroup">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
             <kendo-multiselect [data]="listItems" textField="name" valueField="role_id" [value]="dataItem.roles"
                 (valueChange)="changeHandler($event)" size="large"></kendo-multiselect>
         </ng-template>

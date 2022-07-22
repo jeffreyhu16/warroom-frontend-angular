@@ -11,6 +11,7 @@ import {
   GridComponent
 } from "@progress/kendo-angular-grid";
 import { DashboardService } from 'src/app/services/dashboard.service';
+import { InstanceService } from 'src/app/services/instance.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,6 +23,7 @@ export class DashboardComponent implements OnInit {
   @Input() public roleId!: number;
   @Input() public items!: any[];
 
+  listItems!: any[];
   gridData!: GridDataResult;
   pageSize: number = 10;
   skip: number = 0;
@@ -30,10 +32,14 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService,
+    private instanceService: InstanceService
   ) { }
 
   ngOnInit(): void {
+    this.instanceService.getAllInstances().subscribe(res => {
+      this.listItems = res;
+    });
     this.loadItems();
   }
 
@@ -79,6 +85,11 @@ export class DashboardComponent implements OnInit {
     this.editedRowIndex = rowIndex;
     // console.log(this.formGroup)
     sender.editRow(rowIndex, this.formGroup);
+  }
+
+  changeHandler(value: any) {
+    console.log(value)
+    this.formGroup.value.instance_name = value;
   }
 
   saveHandler({ sender, rowIndex, formGroup, isNew }: SaveEvent) {

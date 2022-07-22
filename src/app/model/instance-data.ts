@@ -20,3 +20,8 @@ export const INSTANCE_SAMPLE = [
     }
 ];
 
+export const ALL_INSTANCES = [
+    { instance_id: 0, name: "184" }, 
+    { instance_id: 1, name: "185" }, 
+    { instance_id: 2, name: "186" }
+]
