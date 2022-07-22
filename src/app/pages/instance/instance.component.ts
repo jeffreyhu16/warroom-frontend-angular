@@ -3,6 +3,14 @@ import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
 import { InstanceService } from 'src/app/services/instance.service';
 import { Instance } from 'src/app/model/instance-data';
+import {
+  AddEvent,
+  CancelEvent,
+  EditEvent,
+  RemoveEvent,
+  SaveEvent,
+  GridComponent
+} from "@progress/kendo-angular-grid";
 
 @Component({
   selector: 'app-instance',
@@ -23,17 +31,22 @@ export class InstanceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.instanceService.getInstanceGridData().subscribe(res => {
+      this.items = res;
+    });
     this.loadItems();
   }
 
   loadItems(): void {
-    this.instanceService.getInstanceGridData().subscribe(res => {
-      this.items = res;
-      this.gridData = {
-        data: this.items.slice(this.skip, this.skip + this.pageSize),
-        total: this.items.length
-      }
-    })
+    this.gridData = {
+      data: this.items.slice(this.skip, this.skip + this.pageSize),
+      total: this.items.length
+    }
+  }
+
+  pageChange(event: PageChangeEvent): void {
+    this.skip = event.skip;
+    this.loadItems();
   }
 
   createFormGroup(args: any): FormGroup {
@@ -49,5 +62,23 @@ export class InstanceComponent implements OnInit {
       authenticate: item.authenticate
     });
     return this.formGroup;
+  }
+
+  saveHandler({ sender, rowIndex, formGroup, isNew }: SaveEvent) {
+    if (isNew) {
+      this.items.push(formGroup.value);
+      // this.instanceService.addUser(formGroup.value);
+    } else {
+      this.items[rowIndex] = formGroup.value;
+      // this.instanceService.updateUser(formGroup.value);
+    }
+    this.loadItems();
+    sender.closeRow(rowIndex);
+  }
+
+  removeHandler({ dataItem, rowIndex }: RemoveEvent): void {
+    this.items.splice(rowIndex, 1);
+    this.loadItems();
+    // this.instanceService.removeUser(dataItem.id);
   }
 }

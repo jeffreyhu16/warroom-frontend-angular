@@ -1,18 +1,19 @@
-<kendo-grid [data]="gridData" [pageable]="true" [pageSize]="pageSize" [skip]="skip"
-    [kendoGridReactiveEditing]="createFormGroup">
+<kendo-grid [data]="gridData" [pageable]="true" [pageSize]="pageSize" [skip]="skip" (pageChange)="pageChange($event)"
+    (add)="addHandler($event)" (edit)="editHandler($event)" (remove)="removeHandler($event)"
+    (cancel)="cancelHandler($event)" (save)="saveHandler($event)">
     <ng-template kendoGridToolbarTemplate>
         <button kendoGridAddCommand>新增</button>
     </ng-template>
-    <kendo-grid-column field="title" title="名稱"></kendo-grid-column>
+    <kendo-grid-column field="instance_name" title="執行個體"></kendo-grid-column>
+    <kendo-grid-column field="dashboard_name" title="名稱"></kendo-grid-column>
     <kendo-grid-column field="menu_name" title="Menu群組名稱"></kendo-grid-column>
-    <kendo-grid-column field="space_name" title="空間"></kendo-grid-column>
+    <!-- <kendo-grid-column field="space_name" title="空間"></kendo-grid-column> -->
     <kendo-grid-column field="description" title="敘述"></kendo-grid-column>
-    <kendo-grid-column field="instance_alias" title="執行個體"></kendo-grid-column>
     <kendo-grid-command-column [width]="165">
         <ng-template kendoGridCellTemplate let-isNew="isNew">
             <button kendoGridEditCommand [primary]="true">編輯</button>
             <button kendoGridRemoveCommand>移除</button>
-            <button kendoGridSaveCommand>{{ isNew ? '新增' : '更新' }}</button>
+            <button kendoGridSaveCommand>更新</button>
             <button kendoGridCancelCommand>取消</button>
         </ng-template>
     </kendo-grid-command-column>

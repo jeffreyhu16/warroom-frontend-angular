@@ -19,10 +19,10 @@ export class DashboardService {
     private messageService: MessageService
   ) { }
 
-  getUserGridData(): Observable<any[]> {
-    const userGridData = of(USER_SAMPLE);
-    return userGridData;
-  }
+  // getUserGridData(): Observable<any[]> {
+  //   const userGridData = of(DASHBOARD);
+  //   return userGridData;
+  // }
 
   getGridData(): Observable<any[]> {
     return this.http.get<any[]>('http://172.17.48.130:8080/v1/influx/')

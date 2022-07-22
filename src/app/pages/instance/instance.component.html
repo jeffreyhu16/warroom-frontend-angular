@@ -1,19 +1,24 @@
-<kendo-grid [data]="gridData" [pageable]="true" [pageSize]="pageSize" [skip]="skip"
+<kendo-grid [data]="gridData" [pageable]="true" [pageSize]="pageSize" [skip]="skip" (pageChange)="pageChange($event)"
+(remove)="removeHandler($event)" (save)="saveHandler($event)"
     [kendoGridReactiveEditing]="createFormGroup">
     <ng-template kendoGridToolbarTemplate>
         <button kendoGridAddCommand>新增</button>
     </ng-template>
-    <kendo-grid-column field="alias" title="個體名稱"></kendo-grid-column>
+    <kendo-grid-column field="name" title="個體名稱"></kendo-grid-column>
     <kendo-grid-column field="type" title="個體類型"></kendo-grid-column>
     <kendo-grid-column field="ip" title="個體IP"></kendo-grid-column>
-    <kendo-grid-column field="username" title="帳號"></kendo-grid-column>
-    <kendo-grid-column field="password" title="密碼"></kendo-grid-column>
-    <kendo-grid-column field="authenticate" title="驗證"></kendo-grid-column>
+    <kendo-grid-column field="user" title="帳號"></kendo-grid-column>
+    <kendo-grid-column field="pass" title="密碼"></kendo-grid-column>
+    <kendo-grid-column field="auth" title="驗證">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            {{ dataItem == 1 ? "是" : "否" }}
+        </ng-template>
+    </kendo-grid-column>
     <kendo-grid-command-column [width]="170">
         <ng-template kendoGridCellTemplate let-isNew="isNew">
             <button kendoGridEditCommand [primary]="true">編輯</button>
             <button kendoGridRemoveCommand>移除</button>
-            <button kendoGridSaveCommand>{{ isNew ? '新增' : '更新' }}</button>
+            <button kendoGridSaveCommand>更新</button>
             <button kendoGridCancelCommand>取消</button>
         </ng-template>
     </kendo-grid-command-column>

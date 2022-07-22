@@ -1,21 +1,22 @@
 export class Instance {
-    alias: string = "";
-    type: string = "";
+    instance_id: number = 0;
     ip: string = "";
-    username: string = "";
-    password: string = "";
-    authenticate: string = "";
+    name: string = "";
+    type: string = "";
+    user: string = "";
+    pass: string = "";
+    auth: number = 0;
 }
 
 export const INSTANCE_SAMPLE = [
     {
-        id: 1,
-        alias: 184,
-        type: "basic",
+        instance_id: 0,
         ip: "http://51.15.89.184:5601",
-        username: "elastic",
-        password: "ECs0Q4I5YsJk9zrp2bMr",
-        authenticate: "是"
+        name: "184",
+        type: "basic",
+        user: "elastic",
+        pass: "ECs0Q4I5YsJk9zrp2bMr",
+        auth: 1
     }
 ];
 

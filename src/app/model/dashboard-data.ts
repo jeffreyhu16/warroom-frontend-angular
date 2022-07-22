@@ -1,7 +1,7 @@
 export class Dashboard {
-    title: string = "";
-    menu_name: string = "";
-    space_name: string = "";
+    dashboard_id: number = 0;
+    dashboard_name: string = "";
     description: string = "";
-    instance_alias: number = 0;
+    instance_name: string = "";
+    menu_name: string = "";
 }

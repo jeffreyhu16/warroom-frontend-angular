@@ -29,6 +29,14 @@ a {
     height: calc(100vh - 80px);
   }
 
+  .k-button-solid-base {
+    background-color: #00000012;
+  }
+
+  .k-multiselect {
+    width: 65%;
+  }
+
   .k-drawer-item {
     user-select: none;
   }
@@ -38,66 +46,75 @@ a {
     padding: 20px;
   }
 
-  .k-grid {
-    height: calc(100vh - 120px);
-  }
-
   .k-grid-header {
     font-size: 1rem;
   }
 
-  .k-grid th {
-    padding: 8px 24px;
+  .k-grid-add-row {
+    .k-textbox {
+      padding: 8px;
+    }
   }
 
-  .k-grid .k-hierarchy-cell>.k-icon {
-    padding: 10px;
-  }
+  .k-detail-row {
+    >.k-detail-cell {
+      padding-left: 0;
+    }
 
-  .k-grid .k-edit-cell,
-  .k-grid .k-command-cell {
-    padding: 6px 16px;
-  }
-
-  .k-grid .k-command-cell>.k-button+.k-button {
-    margin-left: 0;
-  }
-
-  .k-detail-row > .k-detail-cell {
-    padding-left: 0;
+    >.k-hierarchy-cell {
+      margin-right: -5px;
+    }
   }
 
   .k-detail-cell .k-grid {
     height: 100%;
   }
 
-  .k-button-solid-base {
-    background-color: #00000012;
+  .k-grid {
+    height: calc(100vh - 120px);
+
+    th {
+      padding: 8px 24px;
+    }
+
+    .k-edit-cell,
+    .k-command-cell {
+      padding: 6px 16px;
+    }
+
+    .k-hierarchy-cell>.k-icon {
+      padding: 10px;
+    }
+
+    .k-command-cell>.k-button:nth-child(3) {
+      margin-left: 0;
+      color: #3c763d;
+      background-color: #dff0d8;
+    }
   }
 
-  .k-command-cell .k-button {
-    margin-right: 6px;
-  }
+  .k-touch-action-auto {
+    >.k-chip {
+      margin-right: 6px;
+      color: $button-background;
+      border: 1px solid #fff;
+    }
 
-  .k-detail-row > .k-hierarchy-cell {
-    margin-right: -5px;
-  }
+    .k-chip-solid-base {
+      background-color: #ebebeb;
+    }
 
-  .k-multiselect {
-    width: 65%;
-  }
+    .k-chip-solid-info:hover {
+      cursor: auto;
+      color: #fff;
+      border: 1px solid $button-background;
+      background-color: $button-background;
+    }
 
-  .k-chip {
-    margin-right: 6px;
-    color: $button-background;
-    border: 1px solid #fff;
-  }
-
-  .k-chip-solid-info:hover {
-    cursor: auto;
-    color: #fff;
-    border: 1px solid $button-background;
-    background-color: $button-background;
+    .k-textbox,
+    .k-textarea {
+      padding: 8px;
+    }
   }
 }
 

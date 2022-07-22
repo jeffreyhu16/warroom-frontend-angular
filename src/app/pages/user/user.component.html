@@ -1,24 +1,26 @@
-<kendo-grid [data]="gridData" [pageable]="true" [pageSize]="pageSize" [skip]="skip"
-    [kendoGridReactiveEditing]="createFormGroup">
+<kendo-grid [data]="gridData" [pageable]="true" [pageSize]="pageSize" [skip]="skip" (pageChange)="pageChange($event)"
+    (add)="addHandler($event)" (edit)="editHandler($event)" (remove)="removeHandler($event)"
+    (cancel)="cancelHandler($event)" (save)="saveHandler($event)">
     <ng-template kendoGridToolbarTemplate>
         <button kendoGridAddCommand>新增</button>
     </ng-template>
-    <kendo-grid-column field="user_name" title="使用者" [width]="350"></kendo-grid-column>
+    <kendo-grid-column field="name" title="使用者" [width]="350"></kendo-grid-column>
     <kendo-grid-column field="roles" title="角色">
-        <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
-            <kendo-multiselect [data]="listItems" [(ngModel)]="dataItem.roles"></kendo-multiselect>
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem" [formGroup]="formGroup">
+            <kendo-multiselect [data]="listItems" textField="name" valueField="role_id" [value]="dataItem.roles"
+                (valueChange)="changeHandler($event)" size="large"></kendo-multiselect>
         </ng-template>
         <ng-template kendoGridCellTemplate let-dataItem>
-            <!-- <span *ngFor="let item of dataItem.roles">{{ item }}</span> -->
-            <kendo-chip *ngFor="let item of dataItem.roles" [label]="item" [size]="'large'" themeColor="info"></kendo-chip>
+            <kendo-chip *ngFor="let item of dataItem.roles" [label]="item.name" [size]="'large'" themeColor="info">
+            </kendo-chip>
         </ng-template>
     </kendo-grid-column>
-    <kendo-grid-command-column [width]="165">
+    <kendo-grid-command-column [width]="170">
         <ng-template kendoGridCellTemplate let-isNew="isNew">
             <button kendoGridEditCommand [primary]="true">編輯</button>
             <button kendoGridRemoveCommand>移除</button>
-            <button kendoGridSaveCommand>{{ isNew ? '新增' : '更新' }}</button>
+            <button kendoGridSaveCommand>更新</button>
             <button kendoGridCancelCommand>取消</button>
         </ng-template>
     </kendo-grid-command-column>
-</kendo-grid>   
+</kendo-grid>

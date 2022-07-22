@@ -1,106 +1,127 @@
 export class Role {
-    role: string = "";
+    role_id: number = 0;
+    name: string = "";
     dashboards: any[] = [];
 }
 
 export const ROLE_SAMPLE = [
     {
-        role: "Admin",
+        role_id: 0,
+        name: "Admin",
         dashboards: [
             {
-                title: "Dashboard A",
+                dashboard_id: 0,
+                dashboard_name: "Dashboard A",
+                description: "description...",
+                instance_name: 184,
                 menu_name: "Nutanix 全文檢索",
                 space_name: "Default Space",
-                description: "desc...",
-                instance_alias: 184,
             },
             {
-                title: "Dashboard B",
+                dashboard_id: 1,
+                dashboard_name: "Dashboard B",
+                description: "description...",
+                instance_name: 184,
                 menu_name: "Alert 集中檢索",
                 space_name: "Default Space",
-                description: "desc...",
-                instance_alias: 184,
             },
             {
-                title: "Dashboard C",
+                dashboard_id: 2,
+                dashboard_name: "Dashboard C",
+                description: "description...",
+                instance_name: 184,
                 menu_name: "Audit 集中檢索",
                 space_name: "Default Space",
-                description: "desc...",
-                instance_alias: 184,
             },
             {
-                title: "Dashboard D",
+                dashboard_id: 3,
+                dashboard_name: "Dashboard D",
+                description: "description...",
+                instance_name: 184,
                 menu_name: "Event 全文檢索",
                 space_name: "Default Space",
-                description: "desc...",
-                instance_alias: 184,
             },
         ]
     },
     {
-        role: "Ops",
+        role_id: 1,
+        name: "Ops",
         dashboards: [
             {
-                title: "Dashboard A",
+                dashboard_id: 0,
+                dashboard_name: "Dashboard A",
+                description: "description...",
+                instance_name: 184,
                 menu_name: "Nutanix 全文檢索",
                 space_name: "Default Space",
-                description: "desc...",
-                instance_alias: 184,
             },
             {
-                title: "Dashboard B",
+                dashboard_id: 1,
+                dashboard_name: "Dashboard B",
+                description: "description...",
+                instance_name: 184,
                 menu_name: "Alert 集中檢索",
                 space_name: "Default Space",
-                description: "desc...",
-                instance_alias: 184,
             },
             {
-                title: "Dashboard C",
+                dashboard_id: 2,
+                dashboard_name: "Dashboard C",
+                description: "description...",
+                instance_name: 184,
                 menu_name: "Audit 集中檢索",
                 space_name: "Default Space",
-                description: "desc...",
-                instance_alias: 184,
             },
         ]
     },
     {
-        role: "Role X",
+        role_id: 2,
+        name: "Role X",
         dashboards: [
             {
-                title: "Dashboard A",
+                dashboard_id: 0,
+                dashboard_name: "Dashboard A",
+                description: "description...",
+                instance_name: 184,
                 menu_name: "Nutanix 全文檢索",
                 space_name: "Default Space",
-                description: "desc...",
-                instance_alias: 184,
             },
             {
-                title: "Dashboard B",
+                dashboard_id: 1,
+                dashboard_name: "Dashboard B",
+                description: "description...",
+                instance_name: 184,
                 menu_name: "Alert 集中檢索",
                 space_name: "Default Space",
-                description: "desc...",
-                instance_alias: 184,
             },
         ]
     },
     {
-        role: "Role Y",
+        role_id: 3,
+        name: "Role Y",
         dashboards: [
             {
-                title: "Dashboard C",
+                dashboard_id: 2,
+                dashboard_name: "Dashboard C",
+                description: "description...",
+                instance_name: 184,
                 menu_name: "Audit 集中檢索",
                 space_name: "Default Space",
-                description: "desc...",
-                instance_alias: 184,
             },
             {
-                title: "Dashboard D",
+                dashboard_id: 3,
+                dashboard_name: "Dashboard D",
+                description: "description...",
+                instance_name: 184,
                 menu_name: "Event 全文檢索",
                 space_name: "Default Space",
-                description: "desc...",
-                instance_alias: 184,
             },
         ]
     },
 ];
 
-export const ALL_ROLES = ["Admin", "Ops", "Role X", "Role Y"];
+export const ALL_ROLES = [
+    { role_id: 0, name: "Admin" }, 
+    { role_id: 1, name: "Ops" }, 
+    { role_id: 2, name: "Role X" }, 
+    { role_id: 3, name: "Role Y" }
+];
