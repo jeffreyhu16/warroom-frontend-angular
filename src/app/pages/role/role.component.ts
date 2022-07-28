@@ -25,6 +25,7 @@ export class RoleComponent implements OnInit {
   items!: any[];
   formGroup!: FormGroup;
   editedRowIndex?: number;
+  initialMenuId!: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,10 +33,11 @@ export class RoleComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.roleService.getRoleGridData().subscribe(res => {
+    this.roleService.getRoles().subscribe(res => {
+      console.log(res)
       this.items = res;
+      this.loadItems();
     });
-    this.loadItems();
   }
 
   loadItems(): void {
@@ -56,8 +58,8 @@ export class RoleComponent implements OnInit {
     const item = dataItem;
 
     this.formGroup = this.formBuilder.group({
-      id: item.id,
-      name: item.name,
+      role_id: item.role_id,
+      role_name: item.role_name,
       dashboards: [item.dashboards]
     });
     return this.formGroup;
@@ -82,13 +84,24 @@ export class RoleComponent implements OnInit {
     sender.editRow(rowIndex, this.formGroup);
   }
 
+  changeHandler(value: any, field: string) {
+    let tmpFormValue = this.formGroup.value;
+    tmpFormValue[field] = value;
+    this.formGroup.setValue(tmpFormValue);
+  }
+
   saveHandler({ sender, rowIndex, formGroup, isNew }: SaveEvent) {
     if (isNew) {
       this.items.push(formGroup.value);
-      // this.roleService.addRole(formGroup.value);
+      // console.log('formGroup:', formGroup.value);
+      this.roleService.addRole(formGroup.value).subscribe(res => {
+        console.log('Add Role:', res);
+      });
     } else {
       this.items[rowIndex] = formGroup.value;
-      // this.roleService.updateRole(formGroup.value);
+      this.roleService.updateRole(formGroup.value.role_id, formGroup.value).subscribe(res => {
+        console.log('Update Role:', res);
+      });
     }
     this.loadItems();
     sender.closeRow(rowIndex);
@@ -97,7 +110,10 @@ export class RoleComponent implements OnInit {
   removeHandler({ dataItem, rowIndex }: RemoveEvent): void {
     this.items.splice(rowIndex, 1);
     this.loadItems();
-    // this.roleService.removeRole(dataItem.id);
+    console.log(dataItem)
+    this.roleService.removeRole(dataItem.role_id).subscribe(res => {
+      console.log('Delete Role:', res);
+    });
   }
 
   cancelHandler({ sender, rowIndex }: CancelEvent): void {

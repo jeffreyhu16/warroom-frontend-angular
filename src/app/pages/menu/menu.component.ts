@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
-import { User } from 'src/app/model/user-data';
-import { GridDataResult, PageChangeEvent } from "@progress/kendo-angular-grid";
-import { UserService } from 'src/app/services/user.service';
-import { RoleService } from 'src/app/services/role.service';
+import { MenuService } from 'src/app/services/menu.service';
+import { Menu } from 'src/app/model/menu-data';
 import {
   AddEvent,
   CancelEvent,
@@ -14,36 +13,30 @@ import {
 } from "@progress/kendo-angular-grid";
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.css']
 })
-export class UserComponent implements OnInit { // add dynamic variable for column width during window resize
+export class MenuComponent implements OnInit {
 
   gridData!: GridDataResult;
   pageSize: number = 10;
   skip: number = 0;
   items!: any[];
-  listItems!: string[];
   formGroup!: FormGroup;
   editedRowIndex?: number;
+  initialInstanceId!: number;
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService,
-    private roleService: RoleService
+    private menuService: MenuService
   ) { }
 
   ngOnInit(): void {
-    // this.userService.getUserGridData().subscribe(res => {
-    //   this.items = res;
-    // });
-    this.userService.getUsers().subscribe(res => {
+    this.menuService.getMenus().subscribe(res => {
+      console.log(res)
       this.items = res;
       this.loadItems();
-    });
-    this.roleService.getAllRoles().subscribe(res => {
-      this.listItems = res;
     });
   }
 
@@ -52,7 +45,6 @@ export class UserComponent implements OnInit { // add dynamic variable for colum
       data: this.items.slice(this.skip, this.skip + this.pageSize),
       total: this.items.length
     }
-    console.log(this.gridData)
   }
 
   pageChange(event: PageChangeEvent): void {
@@ -60,22 +52,23 @@ export class UserComponent implements OnInit { // add dynamic variable for colum
     this.loadItems();
   }
 
-  createFormGroup(dataItem: any): FormGroup {
+  createFormGroup(dataItem: any): FormGroup { 
     const item = dataItem;
 
     this.formGroup = this.formBuilder.group({
-      user_id: item.user_id,
-      name: item.name,
-      roles: [item.roles]     // why is this the array bracket needed
+      menu_id: item.menu_id,
+      menu_name: item.menu_name,
+      dashboards: [item.dashboards]
     });
+    this.formGroup.get('menu_name')!.setValidators(Validators.required);
     return this.formGroup;
   }
 
   addHandler({ sender }: AddEvent): void {
     this.closeEditor(sender);
 
-    const newUser = new User();
-    this.formGroup = this.createFormGroup(newUser);
+    const newMenu = new Menu();
+    this.formGroup = this.createFormGroup(newMenu);
 
     sender.addRow(this.formGroup);
   }
@@ -90,17 +83,23 @@ export class UserComponent implements OnInit { // add dynamic variable for colum
     sender.editRow(rowIndex, this.formGroup);
   }
 
-  changeHandler(value: any[]) {
-    this.formGroup.value.roles = value;
+  changeHandler(value: any, field: string) {
+    let tmpFormValue = this.formGroup.value;
+    tmpFormValue[field] = value;
+    this.formGroup.setValue(tmpFormValue);
   }
 
   saveHandler({ sender, rowIndex, formGroup, isNew }: SaveEvent) {
     if (isNew) {
       this.items.push(formGroup.value);
-      // this.userService.addUser(formGroup.value);
+      this.menuService.addMenu(formGroup.value).subscribe(res => {
+        console.log('Add Menu:', res);
+      });
     } else {
       this.items[rowIndex] = formGroup.value;
-      // this.userService.updateUser(formGroup.value);
+      this.menuService.updateMenu(formGroup.value.menu_id, formGroup.value).subscribe(res => {
+        console.log('Update Menu:', res);
+      });
     }
     this.loadItems();
     sender.closeRow(rowIndex);
@@ -109,7 +108,9 @@ export class UserComponent implements OnInit { // add dynamic variable for colum
   removeHandler({ dataItem, rowIndex }: RemoveEvent): void {
     this.items.splice(rowIndex, 1);
     this.loadItems();
-    // this.userService.removeUser(dataItem.id);
+    this.menuService.removeMenu(dataItem.menu_id).subscribe(res => {
+      console.log('Delete Menu:', res);
+    });
   }
 
   cancelHandler({ sender, rowIndex }: CancelEvent): void {

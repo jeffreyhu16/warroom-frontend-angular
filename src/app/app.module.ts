@@ -19,6 +19,13 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { GridModule } from '@progress/kendo-angular-grid';
 import { environment } from 'src/environments/environment';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { HomeComponent } from './pages/home/home.component';
+import { MenuComponent } from './pages/menu/menu.component';
+import { PopupDirective } from './directives/popup.directive';
+import { PopupModule } from '@progress/kendo-angular-popup';
+import { InputsModule } from '@progress/kendo-angular-inputs';
+
+
 
 @NgModule({
   declarations: [
@@ -27,6 +34,9 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
     RoleComponent,
     InstanceComponent,
     DashboardComponent,
+    HomeComponent,
+    MenuComponent,
+    PopupDirective,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +58,8 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
     LayoutModule,
     DropDownsModule,
     GridModule,
+    PopupModule,
+    InputsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

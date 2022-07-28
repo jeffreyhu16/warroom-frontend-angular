@@ -4,20 +4,51 @@
     <ng-template kendoGridToolbarTemplate>
         <button kendoGridAddCommand>新增</button>
     </ng-template>
-    <kendo-grid-column field="instance_name" title="執行個體">
-        <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
-            <kendo-dropdownlist [data]="listItems" textField="name" valueField="name" [value]="dataItem.instance_name" [valuePrimitive]="true" (valueChange)="changeHandler($event)" size="large">
+    <kendo-grid-column *ngIf="!menuMode" field="menu_id" title="Menu群組名稱">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup" let-isNew="isNew">
+            <kendo-dropdownlist [data]="menuItems" textField="menu_name" valueField="menu_id" [value]="dataItem.menu_id"
+                [valuePrimitive]="true" (valueChange)="changeHandler($event, 'menu_id', isNew)" size="large">
             </kendo-dropdownlist>
         </ng-template>
         <ng-template kendoGridCellTemplate let-dataItem>
+            {{ dataItem.menu_name }}
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="instance_id" title="執行個體" [editable]="menuMode && addMode" [headerStyle]="{'width': width}"
+        [style]="{'width': width}">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup" let-isNew="isNew">
+            <kendo-dropdownlist [data]="instanceItems" textField="name" valueField="instance_id"
+                [value]="dataItem.instance_id" [valuePrimitive]="true"
+                (valueChange)="changeHandler($event, 'instance_id', isNew)" size="large">
+            </kendo-dropdownlist>
+        </ng-template>
+        <ng-template kendoGridCellTemplate let-dataItem let-isNew="isNew">
             <kendo-chip [label]="dataItem.instance_name" [size]="'large'" themeColor="info"></kendo-chip>
         </ng-template>
     </kendo-grid-column>
-    <kendo-grid-column field="dashboard_name" title="名稱"></kendo-grid-column>
-    <kendo-grid-column field="menu_name" title="Menu群組名稱"></kendo-grid-column>
-    <!-- <kendo-grid-column field="space_name" title="空間"></kendo-grid-column> -->
-    <kendo-grid-column field="description" title="敘述"></kendo-grid-column>
-    <kendo-grid-command-column [width]="165">
+    <kendo-grid-column field="dashboard_id" title="名稱" [editable]="!menuMode || addMode">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-column="column" let-formGroup="formGroup"
+            let-isNew="isNew">
+            <kendo-dropdownlist *ngIf="menuMode && addMode" [data]="dashboardItems" textField="dashboard_name" valueField="uid" [value]="dataItem.uid" [valuePrimitive]="true" (valueChange)="changeHandler($event, 'uid')" size="large">
+            </kendo-dropdownlist>
+            <kendo-dropdownlist *ngIf="!(menuMode && addMode)" [data]="dashboardItems" textField="dashboard_name" valueField="dashboard_id" [value]="dataItem.dashboard_id" [valuePrimitive]="true" (valueChange)="changeHandler($event, 'dashboard_id', isNew)" size="large">
+            </kendo-dropdownlist>
+            <!-- <kendo-popup [anchor]="input.element"
+                *ngIf="formGroup.get(column.field).invalid && !(isNew && formGroup.get(column.field).untouched)" popupClass="k-widget k-tooltip k-tooltip-validation k-invalid-msg">
+                <span class="k-icon k-i-warning"></span>
+                Warning
+            </kendo-popup> -->
+        </ng-template>
+        <ng-template kendoGridCellTemplate let-dataItem>
+            {{ dataItem.dashboard_name }}
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="description" title="敘述" [editable]="menuMode">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
+            <kendo-textbox [value]="dataItem.description" (valueChange)="changeHandler($event, 'description')" size="large"></kendo-textbox>
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-command-column [headerStyle]="{'width':'11rem'}" [style]="{'width':'11rem'}">
         <ng-template kendoGridCellTemplate let-isNew="isNew">
             <button kendoGridEditCommand [primary]="true">編輯</button>
             <button kendoGridRemoveCommand>移除</button>

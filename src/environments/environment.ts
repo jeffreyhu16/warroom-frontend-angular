@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiDomain: 'http://localhost:8701',
+  apiDomain: 'http://192.168.0.145:8005/api/v1',
   ssoAPIDomain: 'http://localhost:5001',
   ssoEnable: true,
   title: 'warroom',

@@ -25,16 +25,17 @@ export class InstanceComponent implements OnInit {
   skip: number = 0;
   items!: any[];
   formGroup!: FormGroup;
+  editedRowIndex?: number;
 
   constructor(private instanceService: InstanceService, private formBuilder: FormBuilder) {
     this.createFormGroup = this.createFormGroup.bind(this);
   }
 
   ngOnInit(): void {
-    this.instanceService.getInstanceGridData().subscribe(res => {
+    this.instanceService.getInstances().subscribe(res => {
       this.items = res;
+      this.loadItems();
     });
-    this.loadItems();
   }
 
   loadItems(): void {
@@ -49,36 +50,74 @@ export class InstanceComponent implements OnInit {
     this.loadItems();
   }
 
-  createFormGroup(args: any): FormGroup {
-    const item = args.isNew ? new Instance() : args.dataItem;
+  createFormGroup(dataItem: any): FormGroup {
+    const item = dataItem;
 
     this.formGroup = this.formBuilder.group({
-      id: item.id,
-      alias: item.alias,
+      instance_id: item.instance_id,
+      name: item.alias,
       type: item.type,
       ip: item.ip,
-      username: item.username,
-      password: item.password,
-      authenticate: item.authenticate
+      user: item.user,
+      pass: item.pass,
+      auth: item.auth
     });
     return this.formGroup;
+  }
+
+  addHandler({ sender }: AddEvent): void {
+    this.closeEditor(sender);
+
+    const newInstance = new Instance();
+    this.formGroup = this.createFormGroup(newInstance);
+
+    sender.addRow(this.formGroup);
+  }
+
+  editHandler({ sender, rowIndex, dataItem }: EditEvent): void {
+    this.closeEditor(sender);
+
+    this.formGroup = this.createFormGroup(dataItem);
+
+    this.editedRowIndex = rowIndex;
+
+    sender.editRow(rowIndex, this.formGroup);
+  }
+
+  changeHandler(value: any, field: string) {
+    let tmpFormValue = this.formGroup.value;
+    tmpFormValue[field] = value;
+    this.formGroup.setValue(tmpFormValue);
   }
 
   saveHandler({ sender, rowIndex, formGroup, isNew }: SaveEvent) {
     if (isNew) {
       this.items.push(formGroup.value);
-      // this.instanceService.addUser(formGroup.value);
+      // this.instanceService.addInstance(formGroup.value);
     } else {
       this.items[rowIndex] = formGroup.value;
-      // this.instanceService.updateUser(formGroup.value);
+      // this.instanceService.updateInstance(formGroup.value);
     }
     this.loadItems();
     sender.closeRow(rowIndex);
+  }
+
+  cancelHandler({ sender, rowIndex }: CancelEvent): void {
+    this.closeEditor(sender, rowIndex);
   }
 
   removeHandler({ dataItem, rowIndex }: RemoveEvent): void {
     this.items.splice(rowIndex, 1);
     this.loadItems();
     // this.instanceService.removeUser(dataItem.id);
+  }
+
+  closeEditor(
+    grid: GridComponent,
+    rowIndex = this.editedRowIndex
+  ): void {
+    grid.closeRow(rowIndex);
+    this.editedRowIndex = undefined;
+    // this.formGroup = undefined;
   }
 }

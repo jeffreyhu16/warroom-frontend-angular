@@ -4,12 +4,12 @@
     <ng-template kendoGridToolbarTemplate>
         <button kendoGridAddCommand>新增</button>
     </ng-template>
-    <kendo-grid-column field="role_name" title="角色">
+    <kendo-grid-column field="menu_name" title="Menu 群組名稱">
         <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
-            <kendo-textbox [value]="dataItem.role_name" (valueChange)="changeHandler($event, 'role_name')" size="large"></kendo-textbox>
+            <kendo-textbox [value]="dataItem.menu_name" (valueChange)="changeHandler($event, 'menu_name')" size="large"></kendo-textbox>
         </ng-template>
     </kendo-grid-column>
-    <kendo-grid-command-column [width]="170">
+    <kendo-grid-command-column [headerStyle]="{'width':'11rem'}" [style]="{'width':'11rem'}">
         <ng-template kendoGridCellTemplate let-isNew="isNew">
             <button kendoGridEditCommand [primary]="true">編輯</button>
             <button kendoGridRemoveCommand>移除</button>
@@ -18,6 +18,7 @@
         </ng-template>
     </kendo-grid-command-column>
     <div *kendoGridDetailTemplate="let dataItem">
-        <app-dashboard [items]="dataItem.dashboards" [roleId]="dataItem.role_id" [menuMode]="false"></app-dashboard>
+        <app-dashboard [items]="dataItem.dashboards" [menuId]="dataItem.menu_id" [menuItems]="items" [menuMode]="true">
+        </app-dashboard>
     </div>
 </kendo-grid>

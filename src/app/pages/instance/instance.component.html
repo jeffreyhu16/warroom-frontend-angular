@@ -1,15 +1,38 @@
 <kendo-grid [data]="gridData" [pageable]="true" [pageSize]="pageSize" [skip]="skip" (pageChange)="pageChange($event)"
-(remove)="removeHandler($event)" (save)="saveHandler($event)"
-    [kendoGridReactiveEditing]="createFormGroup">
+    (add)="addHandler($event)" (edit)="editHandler($event)" (remove)="removeHandler($event)"
+    (cancel)="cancelHandler($event)" (save)="saveHandler($event)">
     <ng-template kendoGridToolbarTemplate>
         <button kendoGridAddCommand>新增</button>
     </ng-template>
-    <kendo-grid-column field="name" title="個體名稱"></kendo-grid-column>
-    <kendo-grid-column field="type" title="個體類型"></kendo-grid-column>
-    <kendo-grid-column field="ip" title="個體IP"></kendo-grid-column>
-    <kendo-grid-column field="user" title="帳號"></kendo-grid-column>
-    <kendo-grid-column field="pass" title="密碼"></kendo-grid-column>
-    <kendo-grid-column field="auth" title="驗證">
+    <kendo-grid-column field="name" title="個體名稱">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
+            <kendo-textbox [value]="dataItem.name" (valueChange)="changeHandler($event, 'name')" size="large"></kendo-textbox>
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="type" title="個體類型">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
+            <kendo-textbox [value]="dataItem.type" (valueChange)="changeHandler($event, 'type')" size="large"></kendo-textbox>
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="ip" title="個體IP" [headerStyle]="{'width': '18%'}" [style]="{'width': '18%'}">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
+            <kendo-textbox [value]="dataItem.ip" (valueChange)="changeHandler($event, 'ip')" size="large"></kendo-textbox>
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="user" title="帳號">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
+            <kendo-textbox [value]="dataItem.user" (valueChange)="changeHandler($event, 'user')" size="large"></kendo-textbox>
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="pass" title="密碼">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
+            <kendo-textbox [value]="dataItem.pass" (valueChange)="changeHandler($event, 'pass')" size="large"></kendo-textbox>
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="auth" title="驗證" [headerStyle]="{'width': '10%'}" [style]="{'width': '10%'}">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem" let-formGroup="formGroup">
+            <kendo-textbox [value]="dataItem.auth" (valueChange)="changeHandler($event, 'auth')" size="large"></kendo-textbox>
+        </ng-template>
         <ng-template kendoGridCellTemplate let-dataItem>
             {{ dataItem == 1 ? "是" : "否" }}
         </ng-template>

@@ -4,13 +4,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MessageService } from './message.service';
 import { catchError, map, tap } from 'rxjs/operators';
 import { USER_SAMPLE } from 'src/app/model/user-data';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  url: string = "";
+  url: string = environment.apiDomain + '/User';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -26,11 +27,11 @@ export class UserService {
     return userGridData;
   }
 
-  getGridData(): Observable<any[]> {
-    return this.http.get<any[]>(this.url)
+  getUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.url}/GetAll`)
       .pipe(
         tap(() => this.log('fetched data')),
-        catchError(this.handleError<any[]>('getGridData', []))
+        catchError(this.handleError<any[]>('getUsers', []))
       );
   }
 

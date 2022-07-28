@@ -4,11 +4,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MessageService } from './message.service';
 import { catchError, map, tap } from 'rxjs/operators';
 import { ALL_INSTANCES, INSTANCE_SAMPLE } from '../model/instance-data';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InstanceService {
+
+  url: string = environment.apiDomain + '/Instance';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -24,13 +27,34 @@ export class InstanceService {
     return instanceGridData;
   }
 
-  getGridData(): Observable<any[]> {
-    return this.http.get<any[]>('http://172.17.48.130:8080/v1/influx/')
+  getInstances(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.url}/GetAll`)
       .pipe(
         tap(() => this.log('fetched data')),
-        catchError(this.handleError<any[]>('getGridData', []))
+        catchError(this.handleError<any[]>('getInstances', []))
       );
   }
+
+  getInstance(id: number): Observable<any> {
+    const instance = ALL_INSTANCES.filter(item => item.instance_id === id);
+    return of(instance[0]);
+  }
+
+  getInstanceById(id: number): Observable<any> {
+    return this.http.get<any[]>(`${this.url}/${id}`)
+      .pipe(
+        tap(() => this.log('fetched data')),
+        catchError(this.handleError<any[]>('getInstanceById', []))
+      );
+  }
+
+  getDashboards(id: number): Observable<any> {
+    return this.http.get<any[]>(`${this.url}/GetDashboards/${id}`)
+      .pipe(
+        tap(() => this.log('fetched data')),
+        catchError(this.handleError<any[]>('getDashboards', []))
+      );
+  } 
 
   getAllInstances(): Observable<any[]> {
     const allRoles = of(ALL_INSTANCES);

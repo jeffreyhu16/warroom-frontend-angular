@@ -3,15 +3,15 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MessageService } from './message.service';
 import { catchError, map, tap } from 'rxjs/operators';
-import { ROLE_SAMPLE, ALL_ROLES } from '../model/role-data';
 import { environment } from 'src/environments/environment';
+import { MENU_SAMPLE } from '../model/menu-data';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RoleService {
+export class MenuService {
 
-  url: string = environment.apiDomain + '/Role';
+  url: string = environment.apiDomain + '/Menu';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -22,42 +22,50 @@ export class RoleService {
     private messageService: MessageService
   ) { }
 
-  getRoleGridData(): Observable<any[]> {
-    const roleGridData = of(ROLE_SAMPLE);
-    return roleGridData;
-  }
-
-  getRoles(): Observable<any[]> {
+  getMenus(): Observable<any[]> {
     return this.http.get<any[]>(`${this.url}/GetAll`)
       .pipe(
         tap(() => this.log('fetched data')),
-        catchError(this.handleError<any[]>('getRoles', []))
+        catchError(this.handleError<any[]>('getGridData', []))
       );
   }
 
-  getAllRoles(): Observable<any[]> {
-    const allRoles = of(ALL_ROLES);
-    return allRoles;
+  getAllMenus(): Observable<any[]> {
+    return of(MENU_SAMPLE);
   }
 
-  addRole(form: any): Observable<any> {
+  getMenu(id: number): Observable<any> {
+    const menu = MENU_SAMPLE.filter(item => item.menu_id === id);
+    console.log('id: ', id, 'menu: ', menu)
+    return of(menu[0]);
+  }
+
+  getMenuById(id: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.url}/${id}`)
+      .pipe(
+        tap(() => this.log('fetched data')),
+        catchError(this.handleError<any[]>('getMenuById', []))
+      );
+  }
+
+  addMenu(form: any): Observable<any> {
     return this.http.post<any>(`${this.url}/Create`, form, this.httpOptions)
       .pipe(
-        catchError(this.handleError<any[]>('addRole', []))
+        catchError(this.handleError<any[]>('addMenu', []))
       );
   }
 
-  addDashboard(roleId: number, dashboardId: number): Observable<any> {
-    return this.http.post<any>(`${this.url}/AddDashboard/${roleId}?dashboard_id=${dashboardId}`, this.httpOptions)
+  addDashboard(id: number, form: any): Observable<any> {
+    return this.http.post<any>(`${this.url}/AddDashboard/${id}`, form, this.httpOptions)
       .pipe(
         catchError(this.handleError<any[]>('addDashboard', []))
       );
   }
 
-  updateRole(id: number, form: any): Observable<any> {
+  updateMenu(id: number, form: any): Observable<any> {
     return this.http.put<any>(`${this.url}/Update/${id}`, form, this.httpOptions)
       .pipe(
-        catchError(this.handleError<any[]>('updateRole', []))
+        catchError(this.handleError<any[]>('updateMenu', []))
       );
   }
 
@@ -75,10 +83,10 @@ export class RoleService {
       );
   }
 
-  removeRole(roleId: number): Observable<any> {
-    return this.http.delete(`${this.url}/Delete/${roleId}`, this.httpOptions)
+  removeMenu(menuId: number): Observable<any> {
+    return this.http.delete(`${this.url}/Delete/${menuId}`, this.httpOptions)
       .pipe(
-        catchError(this.handleError<any[]>('removeRole', []))
+        catchError(this.handleError<any[]>('removeDashboard', []))
       );
   }
 
@@ -91,6 +99,6 @@ export class RoleService {
   }
 
   private log(message: string) {
-    this.messageService.add(`RoleService: ${message}`);
+    this.messageService.add(`MenuService: ${message}`);
   }
 }
